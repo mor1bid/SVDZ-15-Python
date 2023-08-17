@@ -4,7 +4,7 @@
 # командной строки с передачей параметров.
 
 import logging
-import sys
+from sys import argv
 
 # Семинар 3 Задача 6
 # Пользователь вводит строку текста. Вывести каждое слово с новой строки.
@@ -13,13 +13,19 @@ import sys
 # ✔ Текст выравнивается по правому краю так, чтобы у самого длинного 
 # слова был один пробел между ним и номером строки.
 
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w", encoding="utf-8",
+                    format="%(asctime)s %(levelname)s %(message)s")
+
 def sortext(message):
-    logging.info('Программа для отсортировки введённого текста с новой строки.\nТекст не может содержать ничего кроме букв.')
+    "Метод отсортировки введённого текста с новой строки. Текст не должен содержать ничего кроме букв."
+    logging.info(f'Текст получен: {message}')
     try:
         if not message:
-            raise ValueError('suka')
+            raise ValueError()
         co = 1
-        for line in message.split():
+        if type(message) is not list:
+            message = message.split()
+        for line in message:
             spy = sum(1 for ch in line if not ch.isalpha())
             print(co, ". ", line)
             if spy != 0:
@@ -28,12 +34,10 @@ def sortext(message):
     except ValueError:
         logging.error('Текст не найден!')
 
-if __name__ == "__main__":
-    cmd = sys.argv[0]
-    sortext(cmd)
-
-message = input("\n6. Введите желаемый текст через пробел (текст не может содержать ничего кроме букв!)\n: ")
+script, *message = argv
+# message = input("\n6. Введите желаемый текст через пробел (текст не может содержать ничего кроме букв!)\n: ")
 sortext(message)
+logging.info('Работа успешно выполнена!')
 
 # Семинар 10 Задача 2
 # Создайте класс прямоугольник. Класс должен принимать длину и ширину при создании
@@ -42,28 +46,29 @@ sortext(message)
 # сторона, считаем что у нас квадрат.
 
 class Rectan:
-    logging.info('Rectan - класс обработки двух переменных и вычисления площади и периметра четырёхсторонней фигуры')
     "Класс обработки двух переменных и вычисления площади и периметра четырёхсторонней фигуры"
     def __new__(cls, lng, wdt, figur = ''):
         "Получение переменных от пользователя, создание новой фигуры"
-        worker = super().__new__(cls)
-        worker.lng = int(lng)
-        worker.wdt = int(wdt)
+        respawn = super().__new__(cls)
+        respawn.lng = int(lng)
+        respawn.wdt = int(wdt)
         if lng == wdt:
-            worker.figur = figur + 'Квадрат'
+            respawn.figur = figur + 'Квадрат'
         else:
-            worker.figur = figur + 'Прямоугольник'
-        return worker
-    def area(worker):
+            respawn.figur = figur + 'Прямоугольник'
+        logging.info(f'Значение длины: {lng}\nЗначение ширины: {wdt}\nФигура: {figur}')
+        return respawn
+    def area(respawn):
         "Вычисление площади фигуры"
-        area = worker.lng * worker.wdt
+        area = respawn.lng * respawn.wdt
         return area
-    def perimet(worker):
+    def perimet(respawn):
         "Вычисление периметра фигуры"
-        perimet = 2 * (worker.lng + worker.wdt)
+        perimet = 2 * (respawn.lng + respawn.wdt)
         return perimet
-    def __str__(self):
+    def __str__(self, respawn):
         "Вывод результата"
+        logging.info(f'Фигура: {respawn.figur}\nЗначение площади: {self.area()}\nЗначение периметра: {self.perimet()}')
         return f'Площадь = {self.area()}\nПериметр = {self.perimet()}'
 
 paramets = input("\n5. Введите желаемую длину и ширину прямоугольника через пробел (значения должны быть больше 0)\n: ")
@@ -88,3 +93,4 @@ if ex.area() != ex2.area():
 print(f'\nДокументация класса: {Rectan.__doc__ = }')
 print(f'Документация экземпляра: {ex.__doc__ = }')
 print(f'Документация метода: {Rectan.perimet.__doc__ = }')
+logging.info('Работа успешно выполнена!')
