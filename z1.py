@@ -8,9 +8,6 @@
 import logging
 from sys import argv
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w+", encoding="utf-8",
-                    format="%(asctime)s %(levelname)s %(message)s")
-
 def sortext(message):
     "Метод отсортировки введённого текста с новой строки. Текст не должен содержать ничего кроме букв."
     logging.info(f'Текст получен: {message}')
@@ -28,8 +25,7 @@ def sortext(message):
             co += 1
     except ValueError:
         logging.error('Текст не найден!')
+    logging.info(f'{sortext().__name__}: Работа успешно выполнена!')
 
 script, *message = argv
-# message = input("\n6. Введите желаемый текст через пробел (текст не может содержать ничего кроме букв!)\n: ")
 sortext(message)
-logging.info('Работа успешно выполнена!')

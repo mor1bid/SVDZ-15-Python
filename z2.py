@@ -7,9 +7,6 @@
 import logging
 from sys import argv
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w+", encoding="utf-8",
-                    format="%(asctime)s %(levelname)s %(message)s")
-
 class Rectan:
     "Класс обработки двух переменных и вычисления площади и периметра четырёхсторонней фигуры"
     def __new__(cls, lng, wdt, figur = ''):
@@ -35,29 +32,31 @@ class Rectan:
         "Вывод результата"
         logging.info(f'Фигура: {respawn.figur}\nЗначение площади: {self.area()}\nЗначение периметра: {self.perimet()}')
         return f'Площадь = {self.area()}\nПериметр = {self.perimet()}'
+    
+def mathprocess(paramets):
+    if type(paramets) is not list:
+        paramets = paramets.split()
+    try:
+        spy = sum(1 for dig in paramets if int(dig) < 0 or not dig.isdigit())
+        if spy != 0:
+            raise ValueError()
+    except ValueError:
+        logging.error('Невозможно создать фигуру. Некорректное значение введённого параметра!')
+    ex = Rectan(paramets[0], paramets[-1])
+    ex2 = Rectan(25, 25)
+    print(f'\nПример 1 (длина: {ex.lng}, ширина: {ex.wdt}, {ex.figur}):\n{ex}\n\nПример 2 (длина: {ex2.lng}, ширина: {ex2.wdt}, {ex2.figur}):\n{ex2}\n\nСумма периметров двух фигур: {ex.perimet()} + {ex2.perimet()} =  {ex.perimet() + ex2.perimet()}\nРазность периметров двух фигур: {ex.perimet()} - {ex2.perimet()} = {ex.perimet() - ex2.perimet()}')
+    if ex.area() < ex2.area():
+        print(f'\n6. Площадь первой фигуры меньше второй.')
+    elif ex.area() > ex2.area():
+        print(f'\n6. Площадь первой фигуры больше второй.')
+    elif ex.area() == ex2.area():
+        print(f'\n6. Площади фигур равны.')
+    if ex.area() != ex2.area():
+        print(f'Площади фигур не равны.')
+    print(f'\nДокументация класса: {Rectan.__doc__ = }')
+    print(f'Документация экземпляра: {ex.__doc__ = }')
+    print(f'Документация метода: {Rectan.perimet.__doc__ = }')
+    logging.info(f'{mathprocess().__name__}: Работа успешно выполнена!')
 
 script, *paramets = argv
-# paramets = input("\n5. Введите желаемую длину и ширину прямоугольника через пробел (значения должны быть больше 0)\n: ")
-if type(paramets) is not list:
-    paramets = paramets.split()
-try:
-    spy = sum(1 for dig in paramets if int(dig) < 0 or not dig.isdigit())
-    if spy != 0:
-        raise ValueError()
-except ValueError:
-    logging.error('Невозможно создать фигуру. Некорректное значение введённого параметра!')
-ex = Rectan(paramets[0], paramets[-1])
-ex2 = Rectan(25, 25)
-print(f'\nПример 1 (длина: {ex.lng}, ширина: {ex.wdt}, {ex.figur}):\n{ex}\n\nПример 2 (длина: {ex2.lng}, ширина: {ex2.wdt}, {ex2.figur}):\n{ex2}\n\nСумма периметров двух фигур: {ex.perimet()} + {ex2.perimet()} =  {ex.perimet() + ex2.perimet()}\nРазность периметров двух фигур: {ex.perimet()} - {ex2.perimet()} = {ex.perimet() - ex2.perimet()}')
-if ex.area() < ex2.area():
-    print(f'\n6. Площадь первой фигуры меньше второй.')
-elif ex.area() > ex2.area():
-    print(f'\n6. Площадь первой фигуры больше второй.')
-elif ex.area() == ex2.area():
-    print(f'\n6. Площади фигур равны.')
-if ex.area() != ex2.area():
-    print(f'Площади фигур не равны.')
-print(f'\nДокументация класса: {Rectan.__doc__ = }')
-print(f'Документация экземпляра: {ex.__doc__ = }')
-print(f'Документация метода: {Rectan.perimet.__doc__ = }')
-logging.info('Работа успешно выполнена!')
+mathprocess(paramets)
