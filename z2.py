@@ -6,6 +6,10 @@
 
 import logging
 from sys import argv
+# import zlogging
+
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="a", encoding="utf-8",
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 class Rectan:
     "Класс обработки двух переменных и вычисления площади и периметра четырёхсторонней фигуры"
@@ -28,9 +32,9 @@ class Rectan:
         "Вычисление периметра фигуры"
         perimet = 2 * (respawn.lng + respawn.wdt)
         return perimet
-    def __str__(self, respawn):
+    def __str__(self):
         "Вывод результата"
-        logging.info(f'Фигура: {respawn.figur}\nЗначение площади: {self.area()}\nЗначение периметра: {self.perimet()}')
+        logging.info(f'Фигура: {self.figur}\nЗначение площади: {self.area()}\nЗначение периметра: {self.perimet()}')
         return f'Площадь = {self.area()}\nПериметр = {self.perimet()}'
     
 def mathprocess(paramets):
@@ -56,7 +60,7 @@ def mathprocess(paramets):
     print(f'\nДокументация класса: {Rectan.__doc__ = }')
     print(f'Документация экземпляра: {ex.__doc__ = }')
     print(f'Документация метода: {Rectan.perimet.__doc__ = }')
-    logging.info(f'{mathprocess().__name__}: Работа успешно выполнена!')
+    logging.info(f'{mathprocess.__name__}: Работа успешно выполнена!')
 
 script, *paramets = argv
 mathprocess(paramets)
