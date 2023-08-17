@@ -6,7 +6,6 @@
 
 import logging
 from sys import argv
-# import zlogging
 
 logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="a", encoding="utf-8",
                     format="%(asctime)s %(levelname)s %(message)s")
@@ -63,4 +62,6 @@ def mathprocess(paramets):
     logging.info(f'{mathprocess.__name__}: Работа успешно выполнена!')
 
 script, *paramets = argv
-mathprocess(paramets)
+
+if __name__ == '__main__':
+    mathprocess(paramets)

@@ -3,12 +3,10 @@
 # информации. Также реализуйте возможность запуска из
 # командной строки с передачей параметров.
 
-import z1
-import z2
+from z1 import textprocess
+from z2 import mathprocess
 
 message = input("\n1. Введите желаемый текст через пробел (текст не может содержать ничего кроме букв!)\n: ")
-# from z1 import sortext
-z1.sortext(message)
+textprocess(message)
 paramets = input("\n2. Введите желаемую длину и ширину прямоугольника через пробел (значения должны быть больше 0)\n: ")
-# from z2 import mathprocess
-z2.mathprocess(paramets)
+mathprocess(paramets)

@@ -8,10 +8,10 @@
 import logging
 from sys import argv
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w+", encoding="utf-8",
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="a", encoding="utf-8",
                     format="%(asctime)s %(levelname)s %(message)s")
 
-def sortext(message):
+def textprocess(message):
     "Метод отсортировки введённого текста согласно Unicode, с новой строки. Текст не должен содержать ничего кроме букв."
     logging.info(f'Текст получен: {message}')
     try:
@@ -28,7 +28,9 @@ def sortext(message):
             co += 1
     except ValueError:
         logging.error('Текст не найден!')
-    logging.info(f'{sortext.__name__}: Работа успешно выполнена!')
+    logging.info(f'{textprocess.__name__}: Работа успешно выполнена!')
 
 script, *message = argv
-sortext(message)
+
+if __name__ == '__main__':
+    textprocess(message)
